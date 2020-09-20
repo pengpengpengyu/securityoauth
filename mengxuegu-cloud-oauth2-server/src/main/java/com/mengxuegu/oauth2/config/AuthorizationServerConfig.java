@@ -59,7 +59,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 // false表示需要跳转到用户授权页面手动授权，true不用手动授权，直接响应授权码
                 .autoApprove(false)
                 // 客户端回调地址
-                .redirectUris("http://www.mengxuegu.com/");
+                .redirectUris("https://www.baidu.com/");
     }
 
     /**

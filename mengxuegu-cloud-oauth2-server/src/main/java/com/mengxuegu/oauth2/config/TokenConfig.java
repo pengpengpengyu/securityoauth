@@ -1,11 +1,16 @@
 package com.mengxuegu.oauth2.config;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * @author wangpengyu
@@ -25,13 +30,29 @@ public class TokenConfig {
     private RedisConnectionFactory redisConnectionFactory;
 
     /**
-     * redis管理令牌
+     * JDBC管理令牌
+     * 1.创建相关数据表
+     * 2.添加jdbc相关依赖
+     * 3.配置数据源信息
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() {
+        return new DruidDataSource();
+    }
+
+    /**
+     * 令牌管理方式
      *
      * @return
      */
     @Bean
     public TokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+        // Redis管理令牌
+        // return new RedisTokenStore(redisConnectionFactory);
+
+        // JDBC管理令牌
+        return new JdbcTokenStore(dataSource());
     }
 
 
