@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 
 /**
  * @author wangpengyu
@@ -28,6 +29,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private UserDetailsService customUserDetailsService;
+
+    @Autowired
+    private TokenStore tokenStore;
 
     /**
      * 配置允许访问此认证服务器的客户端详细信息
@@ -69,7 +73,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         // 密码模式要设置认证管理器
         endpoints.authenticationManager(authenticationManager)
                 //刷新令牌时需要
-        .userDetailsService(customUserDetailsService);
+                .userDetailsService(customUserDetailsService)
+                // 令牌管理策略配置
+                .tokenStore(tokenStore);
 
     }
 }

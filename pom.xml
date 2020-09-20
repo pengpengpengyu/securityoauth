@@ -26,7 +26,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <mybatis-plus.version>3.2.0</mybatis-plus.version>
-        <druid.version>1.1.12</druid.version>
+        <druid.version>1.1.18</druid.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <fastjson.version>1.2.8</fastjson.version>
         <commons-lang.version>2.6</commons-lang.version>
@@ -57,7 +57,7 @@
             <!--druid连接池-->
             <dependency>
                 <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
+                <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
             <!-- kaptcha 用于图形验证码 -->
