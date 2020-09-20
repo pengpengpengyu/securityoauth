@@ -60,3 +60,8 @@ mybatis-plus:
       # 删除后
       logic-delete-value: 0
   type-aliases-package: com.mengxuegu.web.entites
+
+# 日志级别，会打印sql语句
+logging:
+  level:
+    com.mengxuegu.oauth2.web.mapper: debug
