@@ -3,6 +3,8 @@ package com.mengxuegu.oauth2.resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -23,12 +25,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     /**
      * 资源服务器的ID
      */
-    public static final String RESOURCE_ID = "product_server";
+    public static final String RESOURCE_ID = "product-server";
 
     /**
      * 认证服务器验证token URL
      */
-    public static final String AUTHORIZATION_SERVER_URL = "localhost:8090/auth/oauth/check_token";
+    public static final String AUTHORIZATION_SERVER_URL = "http://localhost:8090/auth/oauth/check_token";
 
     /**
      * 当前资源服务器配置
@@ -38,8 +40,20 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
      */
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId(RESOURCE_ID)
-                .tokenServices(tokenServices());
+        resources.resourceId(RESOURCE_ID)  // 配置当前资源服务器的ID,会在认证服务器验证(客户端表的 resources配置了就可以访问这个服务)
+                .tokenServices(tokenServices());  // 实现令牌服务，ResuourceServiceTokenServices实例
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.sessionManagement()
+                // springSecurity不会再创建也不会再使用HttpSession
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                // 所有请求对应访问的用户都要有all的范围权限
+                .antMatchers("/**").access("#oauth2.hasScope('all')");
+
     }
 
     /**

@@ -103,10 +103,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-                // 所有人可以访问/oauth/token_key
-        security.tokenKeyAccess("permitAll()")
-                // 认证后可以访问/oauth/check_token，默认拒绝访问
-                .checkTokenAccess("isAuthenticated()");
+        // 所有人可以访问/oauth/token_key
+        security.tokenKeyAccess("permitAll()");
+        // 认证后可以访问/oauth/check_token，默认拒绝访问
+        security.checkTokenAccess("isAuthenticated()");
     }
 
     /**
