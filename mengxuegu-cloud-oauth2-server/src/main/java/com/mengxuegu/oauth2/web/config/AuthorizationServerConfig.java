@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.sql.DataSource;
 
@@ -43,6 +44,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     /**
      * 配置允许访问此认证服务器的客户端详细信息
@@ -90,6 +94,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .userDetailsService(customUserDetailsService)
                 // 令牌管理策略配置
                 .tokenStore(tokenStore)
+                // jwt令牌
+                .accessTokenConverter(jwtAccessTokenConverter)
                 // 授权码管理策略配置
                 .authorizationCodeServices(jdbcAuthorizationCodeServices());
 
