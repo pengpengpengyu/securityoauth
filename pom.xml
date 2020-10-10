@@ -13,6 +13,8 @@
         <module>mengxuegu-cloud-oauth2-resource-product</module>
         <module>mengxuegu-cloud-oauth2-sso-client1</module>
         <module>mengxuegu-cloud-oauth2-sso-clent2</module>
+        <module>mengxuegu-cloud-eureka</module>
+        <module>mengxuegu-cloud-getway</module>
     </modules>
     <packaging>pom</packaging>
 

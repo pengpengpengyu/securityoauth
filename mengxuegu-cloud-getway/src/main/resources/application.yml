@@ -1,0 +1,35 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: zuul-gateway
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:6001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+
+# zuul网关配置
+zuul:
+  sensitive-headers: null # 默认zuul认为请求头中“Cookie,Set-Cookie,Authorization”是敏感信息，它不会转发，将其设为null就会转发了
+  add-host-header: true # 正确处理重定向操作
+  routes:
+    authentication: # 路由名称，名称随意，要保证所有路由名称唯一
+      path: /auth/** # 访问路径，转发到auth-server服务处理
+      serviceId: auth-server # 指定服务ID，会自动从Eureka中找到此服务的ip和端口
+      stripPrefix: false # 代理转发时去掉前缀，false:代理转发时不去掉前缀 例如:为true时请求 /product/get/1，代理转发到/get/1
+    product: # 商品服务路由
+      path: /product/** # 转发到product-server服务处理
+      serviceId: proudct-server
+      stripPrefix: false
+
+
+
+
+
+
