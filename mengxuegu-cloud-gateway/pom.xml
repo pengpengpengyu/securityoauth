@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mengxuegu-cloud-getway</artifactId>
+    <artifactId>mengxuegu-cloud-gateway</artifactId>
 
     <dependencies>
         <dependency>

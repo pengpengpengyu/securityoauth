@@ -21,7 +21,7 @@ public class SsoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutSuccessUrl("http://localhost:8090/auth/logout")
+                .logoutSuccessUrl("http://localhost:7001/auth/logout")
                 .and()
                 .csrf().disable();
     }

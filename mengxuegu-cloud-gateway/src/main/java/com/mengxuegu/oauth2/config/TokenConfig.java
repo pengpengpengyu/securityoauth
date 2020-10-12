@@ -1,4 +1,4 @@
-package com.mengxuegu.oauth2.resource.config;
+package com.mengxuegu.oauth2.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;

@@ -25,7 +25,7 @@ zuul:
       stripPrefix: false # 代理转发时去掉前缀，false:代理转发时不去掉前缀 例如:为true时请求 /product/get/1，代理转发到/get/1
     product: # 商品服务路由
       path: /product/** # 转发到product-server服务处理
-      serviceId: proudct-server
+      serviceId: product-server
       stripPrefix: false
 
 

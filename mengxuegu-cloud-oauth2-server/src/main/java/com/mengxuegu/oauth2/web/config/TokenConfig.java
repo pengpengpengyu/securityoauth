@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.sql.DataSource;
 
@@ -66,7 +68,13 @@ public class TokenConfig {
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         // 对称加密来签署令牌，资源服务器也将使用此密钥来验证准码性
-        jwtAccessTokenConverter.setSigningKey(SIGNING_KEY);
+       // jwtAccessTokenConverter.setSigningKey(SIGNING_KEY);
+
+        // 非对称加密
+        // 读取oauth2.jks中的私钥，第2个参数口令oauth2
+        KeyStoreKeyFactory keyFactory = new KeyStoreKeyFactory(new ClassPathResource("oauth2.jks"), "oauth2".toCharArray());
+        // 别名oauth2
+        jwtAccessTokenConverter.setKeyPair(keyFactory.getKeyPair("oauth2"));
         return jwtAccessTokenConverter;
     }
 

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: oauth2Server
+    name: auth-server
   profiles:
     active: pywang
 
@@ -11,5 +11,5 @@ eureka:
     service-url:
       defaultZone: http://localhost:6001/eureka
   instance:
-    instance-id: ${spring.application.name}:${server.port} # 指定实例名称，页面显示主机名称
+    instance-id: ${spring.application.name} # 指定实例名称，页面显示主机名称
     prefer-ip-address: true # 访问路径可以显示ip地址

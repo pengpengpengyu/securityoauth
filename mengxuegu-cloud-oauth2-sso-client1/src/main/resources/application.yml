@@ -1,6 +1,8 @@
 server:
   port: 9001
 spring:
+  application:
+    name: sso-client1
   thymeleaf:
     cache: false
 security:
@@ -8,11 +10,21 @@ security:
     client:
       client-id: client1
       client-secret: mengxuegu-secret
-      user-authorization-uri: http://localhost:8090/auth/oauth/authorize # 请求认证的地址
+      user-authorization-uri: http://localhost:7001/auth/oauth/authorize # 请求认证的地址
       access-token-uri: http://localhost:8090/auth/oauth/token # 获取令牌地址
     resource:
       jwt:
           # 当用户授权后会带着授权码重定向到客户端http://localhost:9001/login?code=xxxx
           # 对应/login会自动的去获取令牌，并通过key-uri指定地址去获取公钥校验令牌有效性
           # 然后完成本次认证与授权
-        key-uri: http://localhost:8090/auth/oauth/token_key
+        key-uri: http://localhost:7001/auth/oauth/token_key
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:6001/eureka
+  instance:
+    instance-id: ${spring.application.name}
+    prefer-ip-address: true
