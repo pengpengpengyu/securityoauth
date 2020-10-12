@@ -1,5 +1,9 @@
 package com.mengxuegu.oauth2.sso.controller;
 
+import com.mengxuegu.base.result.MengxueguResult;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -18,6 +22,7 @@ public class MainController {
 
     @GetMapping(value = "/member")
     public String member() {
+
         return "member";
     }
 }

@@ -59,7 +59,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 所有请求对应访问的用户都要有all的范围权限
-                .antMatchers("/**").access("#oauth2.hasScope('all')");
+                .antMatchers("/**").access("#oauth2.hasScope('PRODUCT_API')");
 
     }
 
